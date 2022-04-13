@@ -17,6 +17,6 @@ fn main() {
             eprint!("{}", std_err);
         }
     } else {
-        std::process::exit(1);
+        std::process::exit(output.status.code().unwrap());
     }
 }

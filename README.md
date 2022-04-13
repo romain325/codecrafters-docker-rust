@@ -50,3 +50,6 @@ mydocker run ubuntu:latest /usr/local/bin/docker-explorer echo hey
 
 This command compiles your Rust project, so it might be slow the first time you
 run it. Subsequent runs will be fast.
+
+
+HELP TO UNDERSTAND: [def](https://github1s.com/codecrafters-io/docker-tester/blob/master/internal/tester_definition.go)
