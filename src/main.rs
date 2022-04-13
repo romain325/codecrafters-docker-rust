@@ -12,10 +12,10 @@ fn main() {
         let std_out = std::str::from_utf8(&output.stdout).unwrap();
         let std_err = std::str::from_utf8(&output.stderr).unwrap();
         if !std_out.is_empty() {
-            println!("{}", std_out);
+            print!("{}", std_out);
         }
         if !std_err.is_empty() {
-            println!("{}", std_err);
+            print!("{}", std_err);
         }
     } else {
         std::process::exit(1);
