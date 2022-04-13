@@ -20,3 +20,4 @@ RUN cargo clean -p docker-starter-rust --release --target-dir=/tmp/codecrafters-
 ADD . /app
 
 ENTRYPOINT ["/app/your_docker.sh"]
+#ENTRYPOINT ["tail", "-f", "/dev/null"]
