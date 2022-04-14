@@ -29,6 +29,7 @@ fn main() {
     }
 
     if !output.status.success() {
+
         std::process::exit(output.status.code().unwrap());
     }
 }
