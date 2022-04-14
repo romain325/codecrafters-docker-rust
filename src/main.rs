@@ -19,24 +19,17 @@ fn main() {
         .output()
         .unwrap();
 
-    if output.status.success() {
-        let std_out = std::str::from_utf8(&output.stdout).unwrap();
-        let std_err = std::str::from_utf8(&output.stderr).unwrap();
-        if !std_out.is_empty() {
-            print!("{}", std_out);
-        }
-        if !std_err.is_empty() {
-            eprint!("{}", std_err);
-        }
-    } else {
-        let std_out = std::str::from_utf8(&output.stdout).unwrap();
-        let std_err = std::str::from_utf8(&output.stderr).unwrap();
-        if !std_out.is_empty() {
-            print!("{}", std_out);
-        }
-        if !std_err.is_empty() {
-            eprint!("{}", std_err);
-        }
+    let std_out = std::str::from_utf8(&output.stdout).unwrap();
+    let std_err = std::str::from_utf8(&output.stderr).unwrap();
+    if !std_out.is_empty() {
+        print!("{}", std_out);
+    }
+    if !std_err.is_empty() {
+        eprint!("{}", std_err);
+    }
+
+    if !output.status.success() {
+
         std::process::exit(output.status.code().unwrap());
     }
 }

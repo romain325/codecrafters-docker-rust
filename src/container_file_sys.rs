@@ -9,8 +9,13 @@ pub fn init_fs(command: String) -> io::Result<String> {
     
     unsafe {
         let val = CString::new(dir).unwrap().into_raw() as *const libc::c_char;
+        let current = CString::new(std::env::current_dir()?.to_str().unwrap()).unwrap().into_raw() as *const libc::c_char;
         //println!("{}",libc::chroot(val));
         libc::chroot(val);
+        libc::unshare(libc::CLONE_NEWPID);
+        // if libc::syscall(libc::SYS_pivot_root, val, current) == -1 {
+        //     println!("{}", io::Error::last_os_error());
+        // }
     }
     std::env::set_current_dir("/")?;
     Ok(new_path)
