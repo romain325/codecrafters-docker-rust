@@ -3,8 +3,8 @@ use std::ffi::CString;
 use std::fs;
 use std::io;
 
-pub fn init_fs(command: String) -> io::Result<String> {
-    let dir = create_dir(command.clone())?;
+pub fn init_fs(command: String, dir: String) -> io::Result<String> {
+
     let new_path = copy_bin(&mut dir.clone(), command)?;
     
     unsafe {
@@ -20,7 +20,7 @@ pub fn init_fs(command: String) -> io::Result<String> {
     Ok(new_path)
 }
 
-fn create_dir(command: String) -> io::Result<String> {
+pub fn create_dir(command: String) -> io::Result<String> {
     let dir = String::from("/app/sandbox");
     let mut bin_dir = dir.clone();
     bin_dir.push_str(&command);

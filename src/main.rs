@@ -1,12 +1,18 @@
 pub mod container_file_sys;
+pub mod registry;
 
-// Usage: your_docker.sh run <image> <command> <arg1> <arg2> ...
+// Usage: your_docker.sh run <image> <command> <arg1> <arg2> ...    
 fn main() {
     let args: Vec<_> = std::env::args().collect();
+    let image = &args[2];
     let command = &args[3];
     let command_args = &args[4..];
 
-    match container_file_sys::init_fs(command.to_string()) {
+    let dir = container_file_sys::create_dir(command.clone()).unwrap();
+
+    registry::pull_image(image.clone(), dir.clone()).unwrap();
+    
+    match container_file_sys::init_fs(command.to_string(), dir) {
         Ok(path) => path,
         Err(err) => {
             eprintln!("{:?}", err);
@@ -29,7 +35,6 @@ fn main() {
     }
 
     if !output.status.success() {
-
         std::process::exit(output.status.code().unwrap());
     }
 }
