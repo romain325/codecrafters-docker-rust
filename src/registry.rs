@@ -5,7 +5,10 @@ pub fn pull_image(image_id: String, result_dir: String) -> Result<(), reqwest::E
     // parse image + tag
     let split : Vec<&str> = image_id.split(':').collect();
     let image = split[0];
-    let tag = split[1];
+    let mut tag = "latest";
+    if split.len() > 1 {
+        tag = split[1];
+    }
     
     let auth = get_auth(String::from(image))?;
     let blob = get_manifest(String::from(image), String::from(tag), auth.clone()).unwrap();
